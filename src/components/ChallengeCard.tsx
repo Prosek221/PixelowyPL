@@ -17,7 +17,7 @@ const difficultyColors = {
 
 const ChallengeCard = ({ title, description, icon: Icon, difficulty, image }: ChallengeCardProps) => {
   return (
-    <div className="challenge-card rounded-lg group">
+    <div className="challenge-card rounded-lg group cursor-pointer animate-glow-pulse">
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
         <img 
@@ -33,17 +33,17 @@ const ChallengeCard = ({ title, description, icon: Icon, difficulty, image }: Ch
         </div>
         
         {/* Icon */}
-        <div className="absolute bottom-3 left-3 w-12 h-12 bg-primary/90 rounded-lg flex items-center justify-center">
+        <div className="absolute bottom-3 left-3 w-12 h-12 bg-primary/90 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
           <Icon className="w-6 h-6 text-primary-foreground" />
         </div>
       </div>
       
       {/* Content */}
       <div className="p-5">
-        <h3 className="font-gaming text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
+        <h3 className="font-pixel text-base text-foreground mb-2 group-hover:text-primary transition-colors">
           {title}
         </h3>
-        <p className="text-muted-foreground text-sm leading-relaxed">
+        <p className="font-minecraft text-lg text-muted-foreground leading-relaxed">
           {description}
         </p>
       </div>

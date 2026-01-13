@@ -8,7 +8,7 @@ const Footer = () => {
           {/* Logo/Brand */}
           <div className="text-center md:text-left">
             <h3 className="font-pixel text-sm text-primary mb-2">MINECRAFT CHALLENGES</h3>
-            <p className="font-gaming text-muted-foreground text-sm">
+            <p className="font-minecraft text-lg text-muted-foreground">
               pixelowyPL & Inexus
             </p>
           </div>
@@ -19,22 +19,33 @@ const Footer = () => {
               href="https://youtube.com/@pixelowyPL"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center hover:bg-redstone transition-colors group"
+              className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center hover:bg-redstone transition-all duration-300 group hover:scale-110"
+              title="pixelowyPL"
             >
-              <Youtube className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+              <Youtube className="w-6 h-6 text-muted-foreground group-hover:text-foreground" />
+            </a>
+            <a
+              href="https://youtube.com/@Inexus"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center hover:bg-diamond transition-all duration-300 group hover:scale-110"
+              title="Inexus"
+            >
+              <Youtube className="w-6 h-6 text-muted-foreground group-hover:text-foreground" />
             </a>
             <a
               href="#"
-              className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center hover:bg-accent transition-colors group"
+              className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center hover:bg-accent transition-all duration-300 group hover:scale-110"
+              title="Discord"
             >
-              <MessageCircle className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+              <MessageCircle className="w-6 h-6 text-muted-foreground group-hover:text-foreground" />
             </a>
           </div>
 
           {/* Copyright */}
-          <div className="flex items-center gap-2 text-muted-foreground text-sm font-gaming">
+          <div className="flex items-center gap-2 text-muted-foreground font-minecraft text-lg">
             <span>Stworzone z</span>
-            <Heart className="w-4 h-4 text-redstone" />
+            <Heart className="w-5 h-5 text-redstone animate-pulse" />
             <span>w 2024</span>
           </div>
         </div>
