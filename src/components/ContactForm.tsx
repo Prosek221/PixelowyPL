@@ -32,10 +32,8 @@ type FormData = z.infer<typeof formSchema>;
 
 const challenges = [
   "Speedrun Challenge",
-  "Hardcore Survival",
   "Build Battle",
   "Mining Race",
-  "Skyblock Challenge",
   "PvP Tournament",
 ];
 
@@ -70,10 +68,10 @@ const ContactForm = () => {
     return (
       <section id="contact" className="py-20 bg-card/30">
         <div className="container mx-auto px-4 max-w-2xl">
-          <div className="text-center py-16">
+          <div className="text-center py-16 animate-bounce-in">
             <CheckCircle className="w-20 h-20 text-primary mx-auto mb-6 animate-pulse" />
             <h3 className="font-pixel text-xl text-primary mb-4">ZGŁOSZENIE WYSŁANE!</h3>
-            <p className="font-gaming text-lg text-muted-foreground">
+            <p className="font-minecraft text-xl text-muted-foreground">
               Dziękujemy za zgłoszenie! Odpowiemy na podany email najszybciej jak to możliwe.
             </p>
           </div>
@@ -87,57 +85,57 @@ const ContactForm = () => {
       <div className="container mx-auto px-4 max-w-2xl">
         {/* Section header */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Gamepad2 className="w-8 h-8 text-primary" />
-            <h2 className="font-pixel text-xl md:text-2xl text-primary glow-text">
+          <div className="flex items-center justify-center gap-3 mb-4 animate-fade-in-up">
+            <Gamepad2 className="w-8 h-8 text-primary animate-pulse" />
+            <h2 className="font-pixel text-2xl md:text-3xl text-primary glow-text">
               ZGŁOŚ SIĘ!
             </h2>
-            <Gamepad2 className="w-8 h-8 text-primary" />
+            <Gamepad2 className="w-8 h-8 text-primary animate-pulse" />
           </div>
-          <p className="font-gaming text-lg text-muted-foreground">
+          <p className="font-minecraft text-xl text-muted-foreground animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             Chcesz wziąć udział w wyzwaniu? Wypełnij formularz poniżej!
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <div className="bg-card/80 p-6 md:p-8 rounded-lg pixel-border">
             {/* Minecraft Nick */}
             <div className="mb-5">
-              <label className="block font-gaming text-sm text-foreground mb-2">
+              <label className="block font-pixel text-sm text-foreground mb-2">
                 Nick Minecraft *
               </label>
               <input
                 {...register("minecraftNick")}
                 type="text"
                 placeholder="TwójNick123"
-                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none"
+                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none font-minecraft text-lg"
               />
               {errors.minecraftNick && (
-                <p className="text-redstone text-sm mt-1 font-gaming">{errors.minecraftNick.message}</p>
+                <p className="text-redstone text-sm mt-1 font-minecraft">{errors.minecraftNick.message}</p>
               )}
             </div>
 
             {/* Discord Nick */}
             <div className="mb-5">
-              <label className="block font-gaming text-sm text-foreground mb-2">
+              <label className="block font-pixel text-sm text-foreground mb-2">
                 Nick Discord *
               </label>
               <input
                 {...register("discordNick")}
                 type="text"
                 placeholder="username#1234 lub @username"
-                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none"
+                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none font-minecraft text-lg"
               />
               {errors.discordNick && (
-                <p className="text-redstone text-sm mt-1 font-gaming">{errors.discordNick.message}</p>
+                <p className="text-redstone text-sm mt-1 font-minecraft">{errors.discordNick.message}</p>
               )}
             </div>
 
             {/* Age and Name row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
               <div>
-                <label className="block font-gaming text-sm text-foreground mb-2">
+                <label className="block font-pixel text-sm text-foreground mb-2">
                   Wiek *
                 </label>
                 <input
@@ -146,52 +144,52 @@ const ContactForm = () => {
                   min="10"
                   max="99"
                   placeholder="16"
-                  className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none font-minecraft text-lg"
                 />
                 {errors.age && (
-                  <p className="text-redstone text-sm mt-1 font-gaming">{errors.age.message}</p>
+                  <p className="text-redstone text-sm mt-1 font-minecraft">{errors.age.message}</p>
                 )}
               </div>
               <div>
-                <label className="block font-gaming text-sm text-foreground mb-2">
+                <label className="block font-pixel text-sm text-foreground mb-2">
                   Imię *
                 </label>
                 <input
                   {...register("name")}
                   type="text"
                   placeholder="Jan"
-                  className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none font-minecraft text-lg"
                 />
                 {errors.name && (
-                  <p className="text-redstone text-sm mt-1 font-gaming">{errors.name.message}</p>
+                  <p className="text-redstone text-sm mt-1 font-minecraft">{errors.name.message}</p>
                 )}
               </div>
             </div>
 
             {/* Email */}
             <div className="mb-5">
-              <label className="block font-gaming text-sm text-foreground mb-2">
+              <label className="block font-pixel text-sm text-foreground mb-2">
                 Adres Email *
               </label>
               <input
                 {...register("email")}
                 type="email"
                 placeholder="twoj@email.com"
-                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none"
+                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none font-minecraft text-lg"
               />
               {errors.email && (
-                <p className="text-redstone text-sm mt-1 font-gaming">{errors.email.message}</p>
+                <p className="text-redstone text-sm mt-1 font-minecraft">{errors.email.message}</p>
               )}
             </div>
 
             {/* Challenge Select */}
             <div className="mb-5">
-              <label className="block font-gaming text-sm text-foreground mb-2">
+              <label className="block font-pixel text-sm text-foreground mb-2">
                 Wybierz Wyzwanie *
               </label>
               <select
                 {...register("challenge")}
-                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground focus:outline-none cursor-pointer"
+                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground focus:outline-none cursor-pointer font-minecraft text-lg"
               >
                 <option value="">-- Wybierz wyzwanie --</option>
                 {challenges.map((challenge) => (
@@ -201,23 +199,23 @@ const ContactForm = () => {
                 ))}
               </select>
               {errors.challenge && (
-                <p className="text-redstone text-sm mt-1 font-gaming">{errors.challenge.message}</p>
+                <p className="text-redstone text-sm mt-1 font-minecraft">{errors.challenge.message}</p>
               )}
             </div>
 
             {/* Optional message */}
             <div className="mb-6">
-              <label className="block font-gaming text-sm text-foreground mb-2">
+              <label className="block font-pixel text-sm text-foreground mb-2">
                 Dodatkowa wiadomość (opcjonalne)
               </label>
               <textarea
                 {...register("message")}
                 rows={4}
                 placeholder="Napisz coś o sobie lub dlaczego chcesz wziąć udział..."
-                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none resize-none"
+                className="w-full px-4 py-3 rounded-lg input-minecraft text-foreground placeholder:text-muted-foreground focus:outline-none resize-none font-minecraft text-lg"
               />
               {errors.message && (
-                <p className="text-redstone text-sm mt-1 font-gaming">{errors.message.message}</p>
+                <p className="text-redstone text-sm mt-1 font-minecraft">{errors.message.message}</p>
               )}
             </div>
 
@@ -225,7 +223,7 @@ const ContactForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full pixel-button px-8 py-4 text-primary-foreground flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full pixel-button px-8 py-4 text-primary-foreground flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover-wiggle"
             >
               {isSubmitting ? (
                 <>

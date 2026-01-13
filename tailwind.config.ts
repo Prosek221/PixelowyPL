@@ -76,8 +76,8 @@ export default {
         },
       },
       fontFamily: {
-        pixel: ['"Press Start 2P"', 'cursive'],
-        gaming: ['"Russo One"', 'sans-serif'],
+        pixel: ['Silkscreen', 'cursive'],
+        minecraft: ['VT323', 'monospace'],
       },
       borderRadius: {
         lg: "var(--radius)",

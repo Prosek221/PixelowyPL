@@ -1,4 +1,4 @@
-import { Sword, Youtube, Users } from "lucide-react";
+import { Sword, Youtube, Users, ExternalLink } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -15,46 +15,66 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         {/* Main title */}
         <div className="mb-8">
-          <h1 className="font-pixel text-2xl md:text-4xl lg:text-5xl text-primary glow-text mb-4 leading-relaxed">
+          <h1 className="font-pixel text-3xl md:text-5xl lg:text-6xl text-primary glow-text mb-4 leading-relaxed animate-fade-in-up">
             MINECRAFT
           </h1>
-          <h2 className="font-pixel text-xl md:text-3xl lg:text-4xl text-foreground mb-6">
+          <h2 className="font-pixel text-2xl md:text-4xl lg:text-5xl text-foreground mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             CHALLENGES
           </h2>
         </div>
         
-        {/* Creators */}
+        {/* Creators with YouTube buttons */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-12">
-          <div className="flex items-center gap-3 bg-card/80 px-6 py-4 rounded-lg pixel-border">
-            <Youtube className="w-8 h-8 text-redstone" />
-            <span className="font-gaming text-xl md:text-2xl text-foreground">pixelowyPL</span>
-          </div>
+          <a 
+            href="https://youtube.com/@pixelowyPL" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-card/80 px-6 py-4 rounded-lg pixel-border hover:scale-105 transition-all duration-300 group animate-slide-in-left hover-wiggle"
+          >
+            <Youtube className="w-8 h-8 text-redstone group-hover:animate-pulse" />
+            <span className="font-pixel text-lg md:text-xl text-foreground">pixelowyPL</span>
+            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+          </a>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 animate-bounce-in" style={{ animationDelay: '0.3s' }}>
             <Sword className="w-8 h-8 text-gold rotate-45" />
             <span className="font-pixel text-sm text-muted-foreground">VS</span>
             <Sword className="w-8 h-8 text-gold -rotate-45" />
           </div>
           
-          <div className="flex items-center gap-3 bg-card/80 px-6 py-4 rounded-lg pixel-border">
-            <Users className="w-8 h-8 text-diamond" />
-            <span className="font-gaming text-xl md:text-2xl text-foreground">Inexus</span>
-          </div>
+          <a 
+            href="https://youtube.com/@Inexus" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-card/80 px-6 py-4 rounded-lg pixel-border hover:scale-105 transition-all duration-300 group animate-slide-in-right hover-wiggle"
+          >
+            <Users className="w-8 h-8 text-diamond group-hover:animate-pulse" />
+            <span className="font-pixel text-lg md:text-xl text-foreground">Inexus</span>
+            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+          </a>
         </div>
         
         {/* Description */}
-        <p className="font-gaming text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+        <p className="font-minecraft text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           Dołącz do nas w epickich wyzwaniach Minecraft! 
           Zarejestruj się i weź udział w niesamowitych challenge'ach!
         </p>
         
-        {/* CTA Button */}
-        <a 
-          href="#challenges" 
-          className="inline-block pixel-button px-8 py-4 text-primary-foreground"
-        >
-          ZOBACZ WYZWANIA
-        </a>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <a 
+            href="#challenges" 
+            className="pixel-button px-8 py-4 text-primary-foreground hover-wiggle"
+          >
+            ZOBACZ WYZWANIA
+          </a>
+          <a 
+            href="#contact" 
+            className="px-8 py-4 border-4 border-primary text-primary font-pixel text-sm uppercase tracking-wider rounded-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+          >
+            ZGŁOŚ SIĘ
+          </a>
+        </div>
       </div>
       
       {/* Bottom grass decoration */}
