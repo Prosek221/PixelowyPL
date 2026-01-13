@@ -1,4 +1,4 @@
-import { Youtube, MessageCircle, Heart } from "lucide-react";
+import { Youtube, MessageCircle, Heart, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -11,12 +11,19 @@ const Footer = () => {
             <p className="font-minecraft text-lg text-muted-foreground">
               pixelowyPL & Inexus
             </p>
+            <a 
+              href="mailto:jasiukruczek13@gmail.com" 
+              className="font-minecraft text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 justify-center md:justify-start mt-2"
+            >
+              <Mail className="w-4 h-4" />
+              jasiukruczek13@gmail.com
+            </a>
           </div>
 
           {/* Social links */}
           <div className="flex items-center gap-4">
             <a
-              href="https://youtube.com/@pixelowyPL"
+              href="https://www.youtube.com/@Pikselowy-PL"
               target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center hover:bg-redstone transition-all duration-300 group hover:scale-110"

@@ -26,8 +26,8 @@ const Hero = () => {
         {/* Creators with YouTube buttons */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-12">
           <a 
-            href="https://youtube.com/@pixelowyPL" 
-            target="_blank" 
+            href="https://www.youtube.com/@Pikselowy-PL" 
+            target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 bg-card/80 px-6 py-4 rounded-lg pixel-border hover:scale-105 transition-all duration-300 group animate-slide-in-left hover-wiggle"
           >
