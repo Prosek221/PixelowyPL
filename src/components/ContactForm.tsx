@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Send, CheckCircle, Gamepad2 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const formSchema = z.object({
   minecraftNick: z.string()
@@ -50,18 +51,32 @@ const ContactForm = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    console.log("Form submitted:", data);
-    toast.success("Zgłoszenie wysłane! Sprawdź swoją skrzynkę email.");
-    setIsSubmitted(true);
-    
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSubmitted(false);
-      reset();
-    }, 3000);
+    try {
+      console.log("Sending submission:", data);
+      
+      const { data: result, error } = await supabase.functions.invoke('send-challenge-submission', {
+        body: data,
+      });
+
+      if (error) {
+        console.error("Error sending submission:", error);
+        toast.error("Wystąpił błąd podczas wysyłania. Spróbuj ponownie.");
+        return;
+      }
+
+      console.log("Submission result:", result);
+      toast.success("Zgłoszenie wysłane! Sprawdź swoją skrzynkę email.");
+      setIsSubmitted(true);
+      
+      // Reset after showing success
+      setTimeout(() => {
+        setIsSubmitted(false);
+        reset();
+      }, 3000);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Wystąpił błąd podczas wysyłania. Spróbuj ponownie.");
+    }
   };
 
   if (isSubmitted) {
