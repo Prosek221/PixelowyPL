@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <h3 className="font-pixel text-sm text-primary mb-2">MINECRAFT CHALLENGES</h3>
             <p className="font-minecraft text-lg text-muted-foreground">
-              pixelowyPL & Inexus
+              Pixelek & Inexus
             </p>
             <a 
               href="mailto:jasiukruczek13@gmail.com" 
@@ -23,11 +23,11 @@ const Footer = () => {
           {/* Social links */}
           <div className="flex items-center gap-4">
             <a
-              href="https://www.youtube.com/@Pikselowy-PL"
+              href="https://www.youtube.com/@Pixelek.Poland"
               target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center hover:bg-redstone transition-all duration-300 group hover:scale-110"
-              title="pixelowyPL"
+              title="Pixelek"
             >
               <Youtube className="w-6 h-6 text-muted-foreground group-hover:text-foreground" />
             </a>

@@ -14,7 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      challenge_submissions: {
+        Row: {
+          age: number
+          challenge: string
+          created_at: string
+          discord_nick: string
+          email: string
+          id: string
+          message: string | null
+          minecraft_nick: string
+          name: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          age: number
+          challenge: string
+          created_at?: string
+          discord_nick: string
+          email: string
+          id?: string
+          message?: string | null
+          minecraft_nick: string
+          name: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          age?: number
+          challenge?: string
+          created_at?: string
+          discord_nick?: string
+          email?: string
+          id?: string
+          message?: string | null
+          minecraft_nick?: string
+          name?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
