@@ -1,1 +1,7 @@
 project_id = "puyvxddhruuqjibujkaz"
+
+[functions.send-challenge-submission]
+verify_jwt = false
+
+[functions.handle-submission-response]
+verify_jwt = false

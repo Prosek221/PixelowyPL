@@ -1,6 +1,9 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -43,7 +46,38 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Send email to the site owner
+    // Create Supabase client with service role
+    const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
+
+    // Save submission to database
+    const { data: savedSubmission, error: dbError } = await supabase
+      .from('challenge_submissions')
+      .insert({
+        minecraft_nick: submission.minecraftNick,
+        discord_nick: submission.discordNick,
+        age: parseInt(submission.age),
+        name: submission.name,
+        email: submission.email,
+        challenge: submission.challenge,
+        message: submission.message || null,
+        status: 'pending'
+      })
+      .select()
+      .single();
+
+    if (dbError) {
+      console.error("Database error:", dbError);
+      throw new Error(`Database error: ${dbError.message}`);
+    }
+
+    console.log("Saved submission with ID:", savedSubmission.id);
+
+    // Generate accept/reject URLs
+    const baseUrl = "https://puyvxddhruuqjibujkaz.supabase.co/functions/v1";
+    const acceptUrl = `${baseUrl}/handle-submission-response?id=${savedSubmission.id}&action=accept`;
+    const rejectUrl = `${baseUrl}/handle-submission-response?id=${savedSubmission.id}&action=reject`;
+
+    // Send email to the site owner with accept/reject buttons
     const ownerEmailRes = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -53,7 +87,7 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Minecraft Challenge <onboarding@resend.dev>",
         to: ["jasiukruczek13@gmail.com"],
-        subject: `Nowe zgłoszenie do wyzwania: ${submission.challenge}`,
+        subject: `🎮 Nowe zgłoszenie: ${submission.minecraftNick} - ${submission.challenge}`,
         html: `
           <div style="font-family: 'Courier New', monospace; background-color: #1a1a2e; color: #00ff88; padding: 20px; border-radius: 10px;">
             <h1 style="color: #ff6b6b; text-align: center;">🎮 Nowe Zgłoszenie do Wyzwania! 🎮</h1>
@@ -79,8 +113,22 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
             ` : ''}
 
+            <div style="text-align: center; margin: 30px 0;">
+              <h2 style="color: #ffd93d;">⚡ Akcja:</h2>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+                <tr>
+                  <td style="padding: 10px;">
+                    <a href="${acceptUrl}" style="display: inline-block; background-color: #00ff88; color: #1a1a2e; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">✅ AKCEPTUJ</a>
+                  </td>
+                  <td style="padding: 10px;">
+                    <a href="${rejectUrl}" style="display: inline-block; background-color: #ff6b6b; color: #1a1a2e; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">❌ ODRZUĆ</a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
             <p style="text-align: center; color: #888; margin-top: 30px;">
-              Wysłane przez formularz na stronie Minecraft Challenge
+              ID zgłoszenia: ${savedSubmission.id}
             </p>
           </div>
         `,
@@ -94,51 +142,11 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error(`Failed to send owner email: ${JSON.stringify(ownerEmailData)}`);
     }
 
-    // Send confirmation email to the participant
-    const participantEmailRes = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: "Minecraft Challenge <onboarding@resend.dev>",
-        to: [submission.email],
-        subject: `Potwierdzenie zgłoszenia - ${submission.challenge}`,
-        html: `
-          <div style="font-family: 'Courier New', monospace; background-color: #1a1a2e; color: #00ff88; padding: 20px; border-radius: 10px;">
-            <h1 style="color: #ff6b6b; text-align: center;">🎮 Dziękujemy za zgłoszenie! 🎮</h1>
-            
-            <p style="text-align: center; font-size: 18px;">
-              Cześć <strong style="color: #ffd93d;">${submission.name}</strong>!
-            </p>
-
-            <div style="background-color: #2a2a4e; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
-              <p>Twoje zgłoszenie do wyzwania:</p>
-              <h2 style="color: #00ff88; margin: 10px 0;">${submission.challenge}</h2>
-              <p>zostało przyjęte! ✅</p>
-            </div>
-
-            <p style="text-align: center;">
-              Wkrótce skontaktujemy się z Tobą na Discord: <strong style="color: #7289da;">${submission.discordNick}</strong>
-            </p>
-
-            <div style="text-align: center; margin-top: 30px;">
-              <p style="color: #888;">Do zobaczenia w grze! 🎯</p>
-              <p style="color: #ffd93d;">pixelowyPL & Inexus</p>
-            </div>
-          </div>
-        `,
-      }),
-    });
-
-    const participantEmailData = await participantEmailRes.json();
-    console.log("Participant email response:", participantEmailData);
-
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: "Emails sent successfully",
+        message: "Submission saved and email sent",
+        submissionId: savedSubmission.id
       }),
       {
         status: 200,
